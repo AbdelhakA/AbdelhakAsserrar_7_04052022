@@ -3,7 +3,6 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { POST } from '../api_links/Axios';
 import endpoints from '../api_links/endpoints';
-
  
 
 function Posts () {
