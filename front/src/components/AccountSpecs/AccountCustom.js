@@ -1,21 +1,34 @@
-import React, { useState, useEffect } from "react"
+import React, {useState} from "react"
 import { useForm } from "react-hook-form"
-// import DeleteProfil from "./DeleteProfil";
-import { PUT } from '../Api/Axios';
-import ENDPOINTS from "../Api/Endpoints";
+import EraseProfile from "./DeleteAccount";
+import { PUT } from '../api_links/Axios';
+import endpoints from "../api_links/endpoints";
 import { useNavigate } from "react-router-dom"
 
 
-function ModifyProfil() {
+function AccountCustom() {
 
   const navigate = useNavigate()
-  const [errorData, setErrorData] = useState("")
+  const [ , setErrorData] = useState("")
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const [infoUser] = useState({
+    pseudo: "",
+    email: "",
+    password: ""
+  })
 
   const onSubmit = data => {
     
-    const respassword = PUT(ENDPOINTS.UPDATE_PASSWORD, {
+    PUT(endpoints.UPDATE_PASSWORD, {
       password: data.password,
     })
+    .then (respassword => {
     if (respassword.status === 500) {
       setErrorData("Vous n'êtes pas inscrit!");
     }
@@ -24,9 +37,10 @@ function ModifyProfil() {
       (window.confirm("Votre mot de passe a bien été modifié !"))
       navigate("/profil")
     }
+  })
 
     
-    const respseudo = PUT(ENDPOINTS.UPDATE_PSEUDO, {
+    const respseudo = PUT(endpoints.UPDATE_PSEUDO, {
       pseudo: data.pseudo,
     })
     if (respseudo.status === 500) {
@@ -90,10 +104,10 @@ function ModifyProfil() {
             type="submit"
             value="Modifier"
           />
-          <DeleteProfil />
+          <EraseProfile />
         </div>
       </form>
     </div>
   )
 }
-export default ModifyProfil;
+export default AccountCustom;

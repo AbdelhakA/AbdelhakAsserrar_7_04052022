@@ -7,8 +7,9 @@ import endpoints from "../api_links/endpoints";
 function CreateComment ({ posts_id, addNewComment }) {
     const [commentMessage, setCommentMessage] = useState("");
     const [button, setButton] = useState(false); // bouton Envoyer
-    const userId = JSON.parse(localStorage.getItem("user")).id
     const [errorData, setErrorData] = useState("")
+    const userId = JSON.parse(localStorage.getItem("user")).id
+    
 
     const onSubmit = data => {
 
@@ -18,7 +19,7 @@ function CreateComment ({ posts_id, addNewComment }) {
           content: commentMessage
         })
         if (response.status === 400) {
-          setErrorData("Vous n'êtes pas inscrit!");
+          setErrorData("Vous ne pouvez pas écrire de commentaire!");
         }
         if (response.status === 201) {
           addNewComment(data.response)
@@ -36,9 +37,9 @@ function CreateComment ({ posts_id, addNewComment }) {
               value={commentMessage}
               id="input-comment"
             />
-            {setButton && (
-              <SendIcon className="send-icon" onClick={onSubmit} />
-            )}
+            {/* {setButton && (
+              // <SendIcon className="send-icon" onClick={onSubmit} />
+            )} */}
           </form>
         </div>
       )

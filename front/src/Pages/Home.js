@@ -1,12 +1,15 @@
 import React from 'react'
-import Content from '../components/Content';
-import Header from '../components/Header';
+import Content from '../Components/Content';
+import Header from '../Components/Header';
 
 const Home = () => {
   return (
-    <div>
-      <Header/>  
-      <Content />
+    <div className="container">
+      <Header />
+        <div className="toolbar"></div>
+        <main className="main">
+          <Content/>
+        </main>
     </div>
   )
 }

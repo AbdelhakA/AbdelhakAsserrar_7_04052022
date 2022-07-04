@@ -1,7 +1,7 @@
 const endpoints = {
     // POSTS ACTIONS ENDPOINTS
     
-    GET_ALL_POSTS: "/api/post",
+    GET_ALL_POSTS: "/api/posts",
     CREATE_POST: "/api/post",
     DELETE_POST: "/api/post/:id",
     
@@ -10,7 +10,7 @@ const endpoints = {
     LIKE_UNLINKE: "/api/post/:id/likeunlike",
     
     // COMMENTS ENDPOINTS
-    GET_ALL_COMMENTS: "/api/comment",
+    GET_ALL_COMMENTS: "/api/comments",
     CREATE_COMMENT: "/api/comment/:id",
     
     // AUTH ENPPOINTS

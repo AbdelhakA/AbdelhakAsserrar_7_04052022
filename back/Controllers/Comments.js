@@ -1,6 +1,6 @@
 const Reaction = require('../models/comments');
 
-//créer un commentaire (POST)
+//POSTER UN COMMENT (POST)
 exports.createReaction = (req, res, next) => {
   const reactionObject = JSON.parse(req.body.post);
   delete reactionObject._id;
@@ -10,7 +10,7 @@ exports.createReaction = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-// trouver tous les commentaires (GET)
+// TROUVER TOUS LES COMMENTS (GET)
 
 exports.getAllReactions = (req, res, next) => {
   Reaction.find()
@@ -18,13 +18,13 @@ exports.getAllReactions = (req, res, next) => {
     .catch(error => {res.status(400).json({ error })})
 };
 
-// supprimer un commentaire (DELETE)
+// SUPPRIMER UN COMMENT (DELETE)
 
 exports.deleteReaction = (req, res, next) => {
   Reaction.findOne({ _id: req.params.id })
     .then(reaction => {
       const filename = reaction.imageUrl.split('/images/')[1];
-      fs.unlink(`ìmages/${filename}`, () => {
+      fs.unlink(`images/${filename}`, () => {
         reaction.deleteOne({ _id: req.params.id })
         .then(() => res.status(200).json({ message: 'Commentaire supprimé !'}))
         .catch(error => res.status(400).json({ error }));

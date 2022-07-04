@@ -1,6 +1,6 @@
 // const { Model, DataTypes } = require("sequelize")
 
-// class Posts extends Model {
+// class Comments extends Model {
 //   static init(sequelize) {
 //     super.init({
 //       id: {
@@ -9,10 +9,10 @@
 //         primaryKey: true,
 //         autoIncrement: true,
 //       },
-//       userId: { type: DataTypes.INTEGER, allowNull: false },
-//       content: { type: DataTypes.STRING, allowNull: true },
-//       imageUrl: { type: DataTypes.STRING, allowNull: true },
+//       userId: {type: DataTypes.INTEGER, allowNull: false},
+//       content: {type: DataTypes.STRING, allowNull: false},
 //       date: { type: DataTypes.DATE },
+//       postId: {type: DataTypes.INTEGER, allowNull: false},
 //     },
 //       {
 //         sequelize
@@ -20,4 +20,4 @@
 //   }
 // }
 
-// module.exports = Posts;
+// module.exports = Comments;

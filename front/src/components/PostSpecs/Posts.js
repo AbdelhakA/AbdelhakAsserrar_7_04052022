@@ -4,38 +4,120 @@ import { useForm } from "react-hook-form"
 import { POST } from '../api_links/Axios';
 import endpoints from '../api_links/endpoints';
  
-
-function Posts () {
-   const {
-        register,
-        handleSubmit, 
-        formState: { errors }
+function Posts(props) {
+  // Gestion du formulaire avec useForm
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
     } = useForm()
+  
+    const [emptyMessage, setEmptyMesssage] = useState(null)
+    const [data , setErrorData] = useState("")
+    const [file, setFile] = useState(false)
+    const [postImage, setPostImage] = useState(null)
+  
+    const onSubmit = async content => {
+      // const data = { text_content: content.text_content };
+      if (content.text_content || file) {
+        setEmptyMesssage(false)
+      } else {
+      
+      }
 
+      // ----------------------------------------------------------------
 
-const [emptyMessage, setEmptyMessage] = useState(null)
+      // POST
+    //   POST(endpoints.CREATE_POST, {
+    //     // userId: data.users_id,
+    //     postId: data.postId,
+    //     content: data.commentMessage,
+    //   })
+    //   .then (response => {
+    //     if (response.status === 400) {
+    //       setErrorData("Post non créé!")
+    //     }
+    //     if (response.status === 201) {
+    //       setErrorData("Post créé!")
+    //     }
+    //   })
+    //   .catch (error => {
+    //   });
+    // }
 
-const onSubmit = async content => { 
-    if(content.text_content) {
-        setEmptyMessage(false)
-    } else {
-        data = {users_id: user_id, text_content: content.text_content}
+    if (file) {
+      POST(endpoints.CREATE_POST, {
+        userId: data.userId,
+        postId: data.postId,
+        content: data.commentMessage,
+        imageUrl: data.imageUrl,
+      })
+      .then (response => {
+        if (response.status === 400) {
+          setErrorData("Post non créé!")
+        }
+        if (response.status === 201) {
+          setErrorData("Post créé!")
+        }
+      })
+      .catch (error => {
+
+      });
+    } else { 
+      POST(endpoints.CREATE_POST, {
+        userId: data.userId,
+        postId: data.postId,
+        content: data.commentMessage,
+      })
+      .then (response => {
+        if (response.status === 400) {
+          setErrorData("Post non créé!")
+        }
+        if (response.status === 201) {
+          setErrorData("Post créé!")
+        }
+      })
+      .catch (error => {
+
+      });
     }
+  }
 
-const getPosts = POST(endpoints.CREATE_POST, {
-    userId: userId,
-    postId: postId,
-    content: commentMessage
-  })
+// function Posts() {
+//    const {
+//         register,
+//         handleSubmit, 
+//         formState: { errors },
+//     } = useForm()
 
-  if (getPosts.status === 400) {
-    setErrorData('Publication non créée')
-    }
-    if (getPosts.status === 201) {
-    setErrorData('Publication créée')
-    }
 
-}
+// const [emptyMessage, setEmptyMessage] = useState(null)
+// const [ , setErrorData] = useState("")
+
+// const onSubmit = async content => { 
+//   const data = { users_id: users_id, text_content: content.text_content };
+//     if(content.text_content) {
+//         setEmptyMessage(false)
+//     } else {
+//         data = data
+//     }
+
+//     POST(endpoints.CREATE_POST, {
+//       userId: data.users_id,
+//       postId: data.postId,
+//       content: data.commentMessage,
+//     })
+
+// .then (res => {
+
+//   if (res.status === 400) {
+//     setErrorData('Publication non créée')
+//     }
+//     if (res.status === 201) {
+//     setErrorData('Publication créée')
+//     }
+//   });
+// }
 
 
 
@@ -67,8 +149,9 @@ return (
 
         <div className="message-post">
           <p>
-            {emptyMessage && "Veuillez publiez un message !"}
+            {emptyMessage && "Veuillez publier un message !"}
           </p>
+          <img src={postImage} alt="" />
         </div>
       </form>
     </div>

@@ -1,17 +1,19 @@
-const Axios = require("axios");
+const Axios = require("axios").default;
 
-Axios.defaults.baseURL = "http://localhost:4200";
+Axios.defaults.baseURL = "http://localhost:3000";
 Axios.defaults.headers.post["Content-Type"] = "application/json";
-Axios.defaults.timeout = 6000;
-Axios.defaults.withCredentials = true;
+Axios.defaults.timeout = 5000;
+// Axios.defaults.withCredentials = true;
 
 const setRequestConfig = (queryParams) => {
-  const source = Axios.CancelToken.source();
+  // const token = require.headers("JWT");
+  const token = localStorage.getItem('Token');
+  // console.log(source.token, queryParams);
   let config = {
-    cancelToken: source.token,
+    // cancelToken: source.token,
     params: {},
   };
-  if (queryParams) {
+  if (token) {
     config.params = queryParams;
   }
 
@@ -23,7 +25,7 @@ export const GET = async (url, queryParams = null) => {
 };
 
 export const POST = async (url, data = null, queryParams = null) => {
-  return Axios.post(url, data, { ...setRequestConfig(queryParams) });
+  return await Axios.post(url, data, { ...setRequestConfig(queryParams) });
 };
 
 export const DELETE = async (url, queryParams = null) => {
@@ -31,5 +33,5 @@ export const DELETE = async (url, queryParams = null) => {
 };
 
 export const PUT = async (url, data = null, queryParams = null) => {
-  return Axios.put(url, data, { ...setRequestConfig(queryParams) });
+  return await Axios.put(url, data, { ...setRequestConfig(queryParams) });
 };

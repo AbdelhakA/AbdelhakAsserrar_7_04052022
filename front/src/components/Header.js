@@ -1,33 +1,36 @@
-// import Logo from '../components/';
+import Logo from './Logo/Logo';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
     const [userLogout, setUserLogout] = useState({});
   const logout = () => {
-    window.location.reload();
+    window.location.reload() ;
   }
 
-
-const user = JSON.parse(localStorage.getItem("user"));
-
  useEffect(() => {
-     setUserLogout(JSON.parse(localStorage.getItem('user')));
- },[]);
+     setUserLogout(JSON.parse( localStorage.getItem('user')));
+ },[]); 
 
  return (
-    <header className="header">
-      <div className="toolbar">
-        <div className="logo_home">
-          {/* <Link to="/home"><Logo /></Link> */}
-        </div>
-        <div className="flex-items-header">
-          {/* <Link to="/profil"></Link> */}
-          <span className='logout'>Logout</span>
-          {/* <Link to="/sign-in"></Link> */}
-        </div>
-      </div>
-    </header>
+  <header className="header">
+  <div className="toolbar">
+    <div className="logo_home">
+      <Link to="/home"><Logo /></Link>
+    </div>
+    <div className="link">
+      <Link to="/account" className='link_profil'>
+        {/* <AccountCircleIcon className='link_profil_icon'/> */}
+        <p className='link_profil_text'>Profil</p>
+      </Link>
+
+      <Link to="/login" className='link_logout'>
+        {/* <ExitToAppIcon className='link_logout_icon' /> */}
+        <p className='link_logout_text'>Logout</p>
+      </Link>
+    </div>
+  </div>
+</header>
   );
 
 }
