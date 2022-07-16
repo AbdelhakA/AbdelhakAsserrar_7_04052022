@@ -1,23 +1,25 @@
-{
+require("dotenv").config(); 
+module.exports = {
+
     "development": {
       "username": "root",
       "password": null,
-      "database": "groupomania",
-      "host": "127.0.0.1",
-      "dialect": "mysql"
+      "database": "P7",
+      "host": "localhost",
+      "dialect": "mql"
     },
     "test": {
       "username": "root",
       "password": null,
       "database": "database_test",
       "host": "127.0.0.1",
-      "dialect": "mysql"
+      "dialect": "mql"
     },
     "production": {
       "username": "root",
       "password": null,
       "database": "database_production",
       "host": "127.0.0.1",
-      "dialect": "mysql"
+      "dialect": "mql"
     }
   }

@@ -37,12 +37,15 @@ async function loadPosts() {
   });
   }
 
-useEffect(() => {
-  loadPosts()
-}, [Token, setPosts, userId]) 
+  useEffect(() => {
+    loadPosts()
+  }, [Token, setPosts, userId])
+
+
 const createNewPost = () => {
   window.location.reload()
 }
+
 
 function deletePost(id) {
 
@@ -63,6 +66,7 @@ if (delPosts.status === 200) {
 setErrorMessage("Post supprimé!");
 window.location.reload()
 }
+console.log('hello')
 
 }
 
@@ -92,4 +96,3 @@ deletePost={() => deletePost(post.id)} />
 
 export default Content;
 
-//useEffects nous permet de recharger la page avec les infos modifiées

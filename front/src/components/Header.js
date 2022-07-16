@@ -19,6 +19,9 @@ function Header() {
       <Link to="/home"><Logo /></Link>
     </div>
     <div className="link">
+      <Link to="/signin" className="link_signin" >
+        <p className="link_signin_text">S'incrire</p>
+      </Link>
       <Link to="/account" className='link_profil'>
         {/* <AccountCircleIcon className='link_profil_icon'/> */}
         <p className='link_profil_text'>Profil</p>

@@ -2,12 +2,13 @@ const endpoints = {
     // POSTS ACTIONS ENDPOINTS
     
     GET_ALL_POSTS: "/api/posts",
-    CREATE_POST: "/api/post",
+    CREATE_POST: "/api/post/create",
     DELETE_POST: "/api/post/:id",
     
     // LIKES / UNLIKES ENDPOINTS
     
-    LIKE_UNLINKE: "/api/post/:id/likeunlike",
+    LIKE_UNLINKE: "/api/:idPost/like/:id",
+    GET_LIKES: "/api/posts/:id",
     
     // COMMENTS ENDPOINTS
     GET_ALL_COMMENTS: "/api/comments",
@@ -24,8 +25,8 @@ const endpoints = {
     GET_ONE_USER: "/api/auth/:id",
     GET_ALL: "/api/auth/",
     UPDATE_PSEUDO: "/api/auth/",
-    UPDATE_PASSWORD: "/api/auth/passwordChange",
-    DELETE_USER: "/api/auth/deleteUser",
+    UPDATE_PASSWORD: "/api/auth/updatepassword",
+    DELETE_USER: "/api/auth/deleteuser",
     };
     
-    export default endpoints;
+    export default endpoints; 

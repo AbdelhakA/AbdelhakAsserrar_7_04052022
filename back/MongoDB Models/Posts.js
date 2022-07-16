@@ -9,7 +9,8 @@ const postSchema = mongoose.Schema({
   dislikes: { type: Number, default: 0 },
   usersLiked: { type: [String] },
   usersDisliked: { type: [String] },
-  comments: { type: [String] }
+  comments: { type: [String] },
+  imageUrl: { type: DataTypes.STRING, allowNull: true }
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Posts', postSchema);

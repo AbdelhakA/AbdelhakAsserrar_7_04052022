@@ -14,17 +14,16 @@ function App() {
 
   return (
     <>
-    
       <Router>
         <Routes>
-        <Route exact path="/" element={<Home />} exact />
+        <Route exact path="/" element={<Home />} />
         <Route exact path='/home' element={<Home />} />
-          {/* <Route path='/signup' exact component={SignUp} /> */}
-          <Route exact path="/signin" element={<SignIn />} />
-          <Route exact path='/post' element={<Posts />} />
-          <Route exact path='/header' element={<Header />} />
-          <Route exact path='*' element={<Account />} />
-          {/* <Redirect to='/' /> */}
+        <Route exact path='/signup' element={<SignUp />} />
+        <Route exact path="/signin" element={<SignIn />} />
+        <Route exact path='/post' element={<Posts />} />
+        <Route exact path='/header' element={<Header />} />
+        <Route exact path='/account' element={<Account />} />
+        {/* <Redirect to='/' /> */}
         </Routes>
       </Router>
     </>

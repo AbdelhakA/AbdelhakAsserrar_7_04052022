@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { DELETE } from './api_links/Axios';
-import ENDPOINTS from './api_links/endpoints';
+import endpoints from './api_links/endpoints';
 import dayjs from "dayjs"
 // import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -25,7 +25,7 @@ function Comments({ comments, deleteComment }) {
   }, [userId, userAdmin]) //configuration des droits à la suppression d'un commentaire
 
   async function deleteComment() {
-    DELETE(ENDPOINTS.DELETE_POST, {
+    DELETE(endpoints.DELETE_POST, {
       content: data.content
     })
     .then (response => {

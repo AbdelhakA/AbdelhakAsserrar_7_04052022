@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { POST } from '../api_links/Axios';
 import endpoints from '../api_links/endpoints';
  
-function Posts(props) {
+function Posts() {
   // Gestion du formulaire avec useForm
     const {
       register,

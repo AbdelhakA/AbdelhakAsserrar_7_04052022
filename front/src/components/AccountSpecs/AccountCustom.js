@@ -35,7 +35,7 @@ function AccountCustom() {
     if (respassword.status === 204) {
       localStorage.clear();
       (window.confirm("Votre mot de passe a bien été modifié !"))
-      navigate("/profil")
+      navigate("/account")
     }
   })
 
@@ -49,7 +49,7 @@ function AccountCustom() {
     if (respseudo.status === 204) {
       localStorage.clear();
       (window.confirm("Votre pseudo a bien été modifé !"))
-      navigate("/profil")
+      navigate("/account")
     }
 
   }

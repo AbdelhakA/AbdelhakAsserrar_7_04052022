@@ -1,12 +1,12 @@
-const Post = require('../models/posts');
-const User = require('../models/user');
+const Post = require('../Models/Posts');
+const User = require('../Models/User');
 const fs = require('fs');
 
 // PUBLIER UN POST (POST)
 
 exports.createPost = (req, res, next) => {
   const postObject = JSON.parse(req.body.post);
-  delete postObject._id;
+  // delete postObject._id;
   const post = new post ({...postObject, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`});
   post.save()
     .then(() => res.status(201).json({message: 'Post enregistré !'}))

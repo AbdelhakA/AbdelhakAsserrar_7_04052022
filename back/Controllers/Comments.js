@@ -1,7 +1,8 @@
+const User = require('../Models/User');
 const Reaction = require('../models/comments');
 
 //POSTER UN COMMENT (POST)
-exports.createReaction = (req, res, next) => {
+exports.createReaction = async (req, res, next) => {
   const reactionObject = JSON.parse(req.body.post);
   delete reactionObject._id;
   const reaction = new post ({...reactionObject, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`});
@@ -13,7 +14,9 @@ exports.createReaction = (req, res, next) => {
 // TROUVER TOUS LES COMMENTS (GET)
 
 exports.getAllReactions = (req, res, next) => {
-  Reaction.find()
+  Reaction.find({
+    where: { postId: req.params.postId },
+  })
     .then(reactions => {res.status(200).json(reactions)})
     .catch(error => {res.status(400).json({ error })})
 };

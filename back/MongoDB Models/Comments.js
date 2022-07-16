@@ -10,4 +10,4 @@ const commentSchema = mongoose.Schema({
   usersDisliked: { type: [String] },
 });
 
-module.exports = mongoose.model('Comment', commentSchema);
+module.exports = mongoose.model('Comments', commentSchema);
