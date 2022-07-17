@@ -24,7 +24,7 @@ exports.getAllReactions = (req, res, next) => {
 // SUPPRIMER UN COMMENT (DELETE)
 
 exports.deleteReaction = (req, res, next) => {
-  Reaction.findOne({ _id: req.params.id })
+  Reaction.findOne({ id: req.params.id })
     .then(reaction => {
       const filename = reaction.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, () => {

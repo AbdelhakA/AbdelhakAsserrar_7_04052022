@@ -30,7 +30,7 @@ exports.signup = async (req, res, next) => {
 };
 
 // Connexion à un compte
-exports.login = async (req, res, next) => {
+exports.signin = async (req, res, next) => {
   const user = await User.findOne( {where: { email: req.body.email }})
     .then(user => {
       if (!user == null) {

@@ -5,9 +5,9 @@ const auth = require('../Middlewares/Auth');
 const admin = require('../Middlewares/Admin');
 const commentCtrl = require('../Controllers/Comments');
 
-router.get('/', auth, admin, commentCtrl.getAllRemarks);
-router.delete('/:id', auth, admin, commentCtrl.deleteRemark);
-router.post('/', auth, admin, commentCtrl.createRemark);
+router.get('/', auth, admin, commentCtrl.getAllReactions);
+router.delete('/:id', auth, admin, commentCtrl.deleteReaction);
+router.post('/', auth, admin, commentCtrl.createReaction);
 router.get('/authTest', auth);
 
 
