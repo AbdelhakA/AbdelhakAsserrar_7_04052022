@@ -12,7 +12,7 @@ dayjs.extend(relativeTime)
 function Comments({ comments, deleteComment }) {
 
   const [DeleteIconTrash, setDeleteIconTrash] = useState(false)
-  const [data, setErrorData] = useState("")
+  const [data, setData] = useState("")
 
   const userInfo = JSON.parse(localStorage.getItem("user"))
   const userId = userInfo.id
@@ -34,7 +34,7 @@ function Comments({ comments, deleteComment }) {
         window.location.reload();
       }
       if (response.status === 400) {
-          setErrorData("Droits Admin requis pour supprimer ce commentaire.")
+          setData("Droits Admin requis pour supprimer ce commentaire.")
       }
     })
     .catch (error => {

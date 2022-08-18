@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Header() {
     const [userLogout, setUserLogout] = useState({});
   const logout = () => {
-    window.location.reload() ;
+    window.location.reload() ; // dans quoi puis-je contenir cette method?
   }
 
  useEffect(() => {
@@ -20,16 +20,16 @@ function Header() {
     </div>
     <div className="link">
       <Link to="/signin" className="link_signin" >
-        <p className="link_signin_text">S'incrire</p>
+        <p className="link_signin_text">Se connecter</p>
       </Link>
       <Link to="/account" className='link_profil'>
         {/* <AccountCircleIcon className='link_profil_icon'/> */}
-        <p className='link_profil_text'>Profil</p>
+        <p className='link_profil_text'>Mon compte</p>
       </Link>
 
-      <Link to="/login" className='link_logout'>
+      <Link to="/signin" className='link_logout'>
         {/* <ExitToAppIcon className='link_logout_icon' /> */}
-        <p className='link_logout_text'>Logout</p>
+        <p className='link_logout_text'>Déconnexion</p>
       </Link>
     </div>
   </div>

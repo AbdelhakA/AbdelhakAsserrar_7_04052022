@@ -1,5 +1,4 @@
-const User = require('../Models/User');
-const Reaction = require('../models/comments');
+const Reaction = require('../MongoDB Models/Comments');
 
 //POSTER UN COMMENT (POST)
 exports.createReaction = async (req, res, next) => {
@@ -24,7 +23,7 @@ exports.getAllReactions = (req, res, next) => {
 // SUPPRIMER UN COMMENT (DELETE)
 
 exports.deleteReaction = (req, res, next) => {
-  Reaction.findOne({ id: req.params.id })
+  Reaction.findOne({ _id: req.params.id })
     .then(reaction => {
       const filename = reaction.imageUrl.split('/images/')[1];
       fs.unlink(`images/${filename}`, () => {

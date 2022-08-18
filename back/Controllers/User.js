@@ -1,30 +1,38 @@
-const User = require ('../Models/User');
+const User = require ('../MongoDB Models/User');
 const bcrypt = require ('bcrypt');
 const jwt = require('jsonwebtoken');
 
 // CRÉATION COMPTE 
 
 exports.signup = async (req, res, next) => {
-  const hash = await bcrypt.hash(req.body.password, 10)
-  userInfo = {
-    pseudo: req.body.pseudo,
-    email: req.body.email,
-    password: hash,
-  }
-   
   try {
-    const user = await User.create(userInfo)
-    console.log("Utilisateur créé !", userInfo)
-    res.status(200).json({
-      id: user.id,
-      pseudo: user.pseudo,
-      email: user.email,
-      token: jwt.sign({ userId: user.id }, `RANDOM_TOKEN_SECRET`, {
-        expiresIn: "24h",
-      }),
-    })
+    // chercher si un compte existe déjà pour l'email ou le pseudo en entrée
+    // si oui retourner ex: 400
+    let existingUser = await User.findOne({email: req.body.email})
+    // si cette variable est vide, ça veut dire qu'on n'a pas trouvé un compte avec un email
+    if (!existingUser) {
+      existingUser = await User.findOne({pseudo: req.body.pseudo}) // on vérifie si le pseudo n'existe pas déjà
+    }
+
+    // si cette variable est remplie, cela veut dire qu'un compte existe 
+    // soit avec le meme email soit avec le meme pseudo
+    if (existingUser) {
+      console.log("Utilisateur existant !",existingUser)
+      res.status(400).send({ error: "Erreur compte existant" })
+    } else {
+      // sinon proceder à la création du user
+      const hash = await bcrypt.hash(req.body.password, 10)
+      const userInfo = {
+        pseudo: req.body.pseudo,
+        email: req.body.email,
+        password: hash,
+      }
+      const user = await User.create(userInfo)
+      console.log("Utilisateur créé !", userInfo)
+      res.status(201).send()
+    }
   } catch (error) {
-    
+    console.log("Error sinup", error)
     return res.status(500).send({ error: "Erreur serveur" })
   }
 };

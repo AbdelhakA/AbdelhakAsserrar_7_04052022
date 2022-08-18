@@ -7,7 +7,7 @@ const commentCtrl = require('../Controllers/Comments');
 
 router.get('/', auth, admin, commentCtrl.getAllReactions);
 router.delete('/:id', auth, admin, commentCtrl.deleteReaction);
-router.post('/', auth, admin, commentCtrl.createReaction);
+router.post('/create', auth, admin, commentCtrl.createReaction);
 router.get('/authTest', auth);
 
 

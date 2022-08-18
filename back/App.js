@@ -1,16 +1,18 @@
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
-const path = require('path');
+const app = express();
 const postRoutes = require('./Routes/Posts');
 const userRoutes = require('./Routes/User');
 const commentRoutes = require('./Routes/Comments');
 const likeRoutes = require('./Routes/Likes')
-
+const path = require('path');
 
 require('dotenv').config()
-
 console.log(process.env)
+
+
+//connexion avec la base de données
+
 
 mongoose.connect(process.env.DB_URL,
   { useNewUrlParser: true,
@@ -29,7 +31,7 @@ app.use((req, res, next) => {
 });
 
 app.use ('/api/posts', postRoutes);
-app.use ('/api/auth', userRoutes);
+app.use ('/api/users', userRoutes);
 app.use ('/api/comments', commentRoutes);
 app.use ('/api/likes', likeRoutes);
 

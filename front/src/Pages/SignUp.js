@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   // useState
-  const [errorData, setErrorMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
 
   // gestion du formulaire avec useForm
   const {
@@ -28,15 +28,18 @@ function SignUp() {
       password: data.password
     })
     .then (response => {
-      if (response.status === 400) {
-        setErrorMessage("Compte existant sous cette adresse !");
-      }
-      if (response.status === 200) {
+      
+      if (response.status === 201) {
         setErrorMessage("Compte créé")
         navigate("/signin")
       }
     })
     .catch (error => {
+      if (error.response.status === 400) {
+        setErrorMessage("Compte existant !");
+      } else {
+        setErrorMessage("Erreur technique"); // dans le cas d'une erreur autre que 400 
+      }
     });
   };
   
@@ -94,9 +97,10 @@ function SignUp() {
           {errors.password && <span>{errors.password.message}</span>}
           <br />
 
-          <input type="submit" value="Inscription" className="button" />
+          <button type="submit" className="button">Inscription</button>
+      
 
-          <span className="error-message">{errorData}</span>{" "}
+          <span className="error-message">{errorMessage}</span>{" "}
         </form>
       </div>
     </div>

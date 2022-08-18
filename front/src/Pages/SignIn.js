@@ -5,17 +5,14 @@ import endpoints from '../Components/api_links/endpoints';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import './PagesCSS/SignIn.css';
 // import Logo from '../component/Logo';
 
 export default function SignIn() {
 
- // useState
+
  const [errorData, setErrorData] = useState("")
-
- // usenavigate
  const navigate = useNavigate()
-
- // registrer + err
  const {
    register,
    handleSubmit,
@@ -26,28 +23,37 @@ export default function SignIn() {
    localStorage.clear()
  },[])
 
- const onSubmit = data => {
+ const onSubmit = async data => {
 
-   POST(endpoints.USER_LOGIN, {
-     email: data.email,
-     password: data.password
-   })
-   .then (response => {
-     if (response.status === 401) {
-       setErrorData("Vous n'êtes pas inscrit!");
-     }
-     if (response.status === 200) {
-       let token = response.data.token
-       let user = JSON.stringify(response.data)
-       console.log(token + user)
-       localStorage.setItem("Token", token)
-       localStorage.setItem("user", user)
-       localStorage.getItem("user", user, "token", token)
-       navigate("/home")
-     }
-   })
-   .catch (error => {
-   });
+// try catch est l'equivalant de promine.then().catch()
+
+  try {
+
+    const response = await POST(endpoints.USER_SIGNIN, {
+      email: data.email,
+      password: data.password
+    })
+
+    if (response.status === 200) {
+      let token = response.data.token
+      let user = JSON.stringify(response.data)
+      // console.log(token + user)
+      localStorage.setItem("Token", token)
+      localStorage.setItem("user", user)
+      localStorage.setItem("userId", response.data.userId)
+      navigate("/")
+    }
+    console.log(localStorage)
+
+  } catch(error) {
+    console.log("error",error)
+    if (error.response && error.response.data && error.response.data.error) {
+      setErrorData(error.response.data.error)
+    } else {
+      setErrorData("Erreur connexion");
+    }
+  }
+
  }
 
  return (
@@ -55,12 +61,12 @@ export default function SignIn() {
      {/* <Logo /> */}
      <div className="container-form">
        <div className="form">
-         <h4>Login</h4>
+         <h4>Welcome back!</h4>
        </div>
        <form onSubmit={handleSubmit(onSubmit)} className="connect-form">
          
          {/* email */}
-         <label htmlFor="email">Email:</label>
+         <label htmlFor="email">E-mail:</label>
          <br />
            <input
              type="email"
@@ -87,7 +93,7 @@ export default function SignIn() {
            />
            {errors.password && <span>{errors.password.message}</span>}
          <br />
-           <input type="submit" value="Connection" className="button" />
+           <input type="submit" value="Se connecter" className="button" />
          <span className="error-message">{errorData}</span>
        </form>
        <div className="pos-form">

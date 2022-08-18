@@ -1,31 +1,48 @@
-const Post = require('../Models/Posts');
-const User = require('../Models/User');
+const Post = require('../MongoDB Models/Posts');
+const User = require('../MongoDB Models/User');
 const fs = require('fs');
 
-// PUBLIER UN POST (POST)
+// PUBLIER UN POST (POST) ---------------------------------------------------
 
 exports.createPost = (req, res, next) => {
+  console.log("post in body", req.body.post);
   const postObject = JSON.parse(req.body.post);
   // delete postObject._id;
-  const post = new post ({...postObject, imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`});
+  const postToCreate = {
+    ...postObject
+  }
+  if(req.file) {
+    postToCreate = {
+      ...postToCreate,
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    }
+  }
+  const post = new Post(postToCreate);
   post.save()
     .then(() => res.status(201).json({message: 'Post enregistré !'}))
     .catch((error) => res.status(400).json({ error }));
 };
 
-// TROUVER TOUS LES POSTS (GET)
 
-exports.getAllPosts = (req, res, next) => {
-  Post.findAll({
+// TROUVER TOUS LES POSTS (GET) -----------------------------------------------
+
+exports.getAllPosts = async (req, res, next) => {
+  try {
+    const allPosts = await Post.find({
     attributes: ["id", "content", "imageUrl", "userId"],
     order: [["createdAt", "DESC"]],
-    include: [
-      {
+    include: [{
         model: User,
         attributes: ["pseudo", "id"],
-      },
-    ],
+      }]
   })
+  res.json(allPosts);
+} catch (err) {
+  console.error("erreur getAllPosts", err);
+  return res.status(500).send({
+    error: "Erreur lors de la récupération des publications",
+  })
+}
 };
   
 

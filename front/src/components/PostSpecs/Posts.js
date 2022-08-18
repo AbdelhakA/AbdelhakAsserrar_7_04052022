@@ -13,13 +13,13 @@ function Posts() {
     } = useForm()
   
     const [emptyMessage, setEmptyMesssage] = useState(null)
-    const [data , setErrorData] = useState("")
+    const [data , setData] = useState("")
     const [file, setFile] = useState(false)
     const [postImage, setPostImage] = useState(null)
   
     const onSubmit = async content => {
       // const data = { text_content: content.text_content };
-      if (content.text_content || file) {
+      if (content.text_content) {
         setEmptyMesssage(false)
       } else {
       
@@ -27,59 +27,52 @@ function Posts() {
 
       // ----------------------------------------------------------------
 
-      // POST
-    //   POST(endpoints.CREATE_POST, {
-    //     // userId: data.users_id,
-    //     postId: data.postId,
-    //     content: data.commentMessage,
-    //   })
-    //   .then (response => {
-    //     if (response.status === 400) {
-    //       setErrorData("Post non créé!")
-    //     }
-    //     if (response.status === 201) {
-    //       setErrorData("Post créé!")
-    //     }
-    //   })
-    //   .catch (error => {
-    //   });
-    // }
-
-    if (file) {
-      POST(endpoints.CREATE_POST, {
-        userId: data.userId,
-        postId: data.postId,
-        content: data.commentMessage,
-        imageUrl: data.imageUrl,
+    if (content && content.image_file) {
+      // cet appel n'est pas correct
+      const userId = localStorage.getItem("userId");
+      const newPost = {
+        userId : userId,
+        content : content.text_content
+      };
+      const bodyFormData = new FormData();
+      bodyFormData.append('post', JSON.stringify(newPost));
+      bodyFormData.append('image', content.image_file);
+      POST(endpoints.CREATE_POST, bodyFormData, null, {
+        'content-type' : 'multipart/form-data'
       })
       .then (response => {
         if (response.status === 400) {
-          setErrorData("Post non créé!")
+          setData("Publication non créée!")
         }
         if (response.status === 201) {
-          setErrorData("Post créé!")
+          setData("Publication créée!")
         }
       })
       .catch (error => {
 
       });
     } else { 
-      POST(endpoints.CREATE_POST, {
-        userId: data.userId,
-        postId: data.postId,
-        content: data.commentMessage,
+      const userId = localStorage.getItem("userId");
+      const newPost = {
+        userId : userId,
+        content : content.text_content
+      };
+      const bodyFormData = new FormData();
+      bodyFormData.append('post', JSON.stringify(newPost))
+      POST(endpoints.CREATE_POST, bodyFormData, null, {
+        'content-type' : 'multipart/form-data'
       })
       .then (response => {
         if (response.status === 400) {
-          setErrorData("Post non créé!")
+          setData("Post non créé!")
         }
         if (response.status === 201) {
-          setErrorData("Post créé!")
+          setData("Post créé!")
         }
       })
       .catch (error => {
 
-      });
+      })
     }
   }
 

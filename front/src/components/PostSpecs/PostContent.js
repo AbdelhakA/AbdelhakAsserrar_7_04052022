@@ -4,14 +4,14 @@ import dayjs from 'dayjs';
 import { GET } from '../api_links/Axios';
 import endpoints from '../api_links/endpoints';
 
-import { set } from "react-hook-form";
+// import { set } from "react-hook-form";
 
 function PostContent (post, deletePost) {
 
     const [comment, setComment] = useState([])
     const [displayComments, setDisplayComments] = useEffect(false);
     const [displayLikes, setDisplayLikes] = useState(false)
-    const [data, setErrorData] = useState("")
+    const [data, setData] = useState("")
 
     const addComment = function addNewComment () {
         setComment(setState => {
@@ -44,18 +44,17 @@ function PostContent (post, deletePost) {
           if (post.userId === userId || userAdmin) {
             // setDeleteIconTrash(true)
           }       
-      }, []);
+      }, [post.userId, userId, userAdmin]);
 
       // Likes
       function likeHandle() {
-        GET(endpoints.LIKE_UNLINKE, {
-        })
+        GET(endpoints.LIKE_UNLIKE, {})
         .then (res => {
           if (res.status === 400) {
-            setErrorData("Likes non fonctionnels!")
+            setData("Likes non fonctionnels!")
           }
           if (res.status === 200) {
-            setErrorData("Likes!")
+            setData("Likes!")
           }
         })
         .catch (error => {
@@ -68,10 +67,10 @@ function PostContent (post, deletePost) {
         })
         .then (resLikes => {
           if (resLikes.status === 404) {
-            setErrorData("Likes non chargés!")
+            setData("Likes non chargés!")
           }
           if (resLikes.status === 200) {
-            setErrorData("Likes chargés!")
+            setData("Likes chargés!")
             setDisplayLikes(data.length)
           }
         })
@@ -87,15 +86,15 @@ function PostContent (post, deletePost) {
 
       return (
         <div>
-          <div className="card-feed">
+          <div className="card-content">
             <div className="flex-avatar">
               <h4 className="author-posts">{post.User.pseudo}</h4>
             </div>
               <span className="time_post">{dayjs(post.createdAt).locale("fr").fromNow()}</span>
-              <div className="post-feed">
+              <div className="post-content">
                 <p className="text-post">{post.content}</p>
               </div>
-            <div className="footer-post-feed">
+            <div className="footer-post-content">
               {/* <FavoriteIcon className="favorite-icon" onClick={likeHandle} /> */}
               <span className="all-likes">{displayLikes}</span>
               <span>

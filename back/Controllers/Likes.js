@@ -1,4 +1,4 @@
-const Post = require('../Models/Posts');
+const Post = require('../MongoDB Models/Posts');
 const Like = require('../Models/Likes');
 
 // CRÉER UN LIKE

@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import './App.css';
+import './Pages/PagesCSS/App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // rajouter Switch au moment voulu
 import Header from './Components/Header';
 import Home from './Pages/Home';
@@ -16,14 +16,14 @@ function App() {
     <>
       <Router>
         <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path='/home' element={<Home />} />
-        <Route exact path='/signup' element={<SignUp />} />
-        <Route exact path="/signin" element={<SignIn />} />
-        <Route exact path='/post' element={<Posts />} />
-        <Route exact path='/header' element={<Header />} />
-        <Route exact path='/account' element={<Account />} />
-        {/* <Redirect to='/' /> */}
+          <Route exact path="/" element={<Home />} />
+          {/* <Route exact path='/home' element={<Home />} /> */}
+          <Route exact path='/signup' element={<SignUp />} />
+          <Route exact path="/signin" element={<SignIn />} />
+          <Route exact path='/post' element={<Posts />} />
+          {/* <Route exact path='/header' element={<Header />} /> */}
+          <Route exact path='/account' element={<Account />} />
+          {/* <Redirect to='/' /> */}
         </Routes>
       </Router>
     </>

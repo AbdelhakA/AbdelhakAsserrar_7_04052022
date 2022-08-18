@@ -5,8 +5,8 @@ const max = require("../Middlewares/Limit")
 const userCtrl = require('../Controllers/User');
 
 router.post('/signup', userCtrl.signup);
-router.post('/signin', userCtrl.signin);
-router.get('/logout', userCtrl.logout)
+router.post('/signin', max.limiter, userCtrl.signin);
+router.get('/logout', userCtrl.logout);
 router.delete('/deleteUser', userCtrl.deleteAccount);
 router.put('/updatepassword', userCtrl.modifyPassword);
 router.put('/modifyPseudo',userCtrl.modifyPseudo);
